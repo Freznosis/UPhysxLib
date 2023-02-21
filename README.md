@@ -23,7 +23,10 @@ I simply do not like the Chaos Physics system that Epic Games has forced on ever
      - One of the main reason I want to use PhysX is because of the performance benefit. 
      - That means our implementation of PhysX needs to be as lean as possible, so that we can benefit from it's great performance.
      - If our implementation is poor, then their is almost no reason to replace the physics system in UE.
-     
+
+## Implementation
+This plugin is being kept as generic as possible so that is can be used across many projects, but ultimately I will only develop it as far as the feature set that is needed by my current projects. This means I won't be aiming to provide all PhysX features if my projects don't use them, and even more-so that means it is very unlikely I will be providing Blast or Flow libraries as well. That is not to say I won't eventually get around to it if there is enough requests, but I must keep the scope of this project maintainable. With that said, I am highly open to Pull Requests provided they follow the same rules that the plugin follows. 
+
 ## Usage
 Because I am very performance oriented, I want to place a big emphasis on not using separate components for different features in PhysX. There can be a great performance difference between 5 components that handle different things **versus** using a single one of your components to do many things. This might not be so apparent in the short run, but in the long run it will add up. For this reason, the main example usage of this plugin will not revolve around providing individual components that handle different physics interactions. They will still be provided for ease of use and artist friendly setups, but the greatness that comes from UPhysxLib is being able to write PhysX code directly in your own components.
 
@@ -64,3 +67,5 @@ You have three boxes that use rigidbodies that you want to connect with hinge-st
 ```
 
 The even greater thing that UPhysxLib provides is the flexibility for you to rely on it's helper functions, or letting you do everything yourself. You can even skip using *APhysxLibActor* or a compatible *IPhysxLibActorInterface* component and create your own PhysX objects. It's as simple as reading the docs and then passing the created objects to the physics world with UPhysxLib::RegisterWithWorld() or Casting UWorldSettings to UWorldSettingsPhysx and using RegisterWithWorld() that way. It is entirely up to you how much you rely or don't rely on the helper functions.
+
+**Do take note: Creating your own PhysX objects means you will be responsible for updating their pose unless you implement IPhysxLibActorInterface.**
